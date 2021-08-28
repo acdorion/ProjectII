@@ -1,4 +1,4 @@
-Group Members: Matthew Yurich, Madhusan Tamrakar, Allison Dorion
+Group Members: Matthew Yurich, Madhusudan Tamrakar, Allison Dorion
 
 1. Tell a story with data visualizations  
 2. Focus on providing an interactive means to explore data themselves

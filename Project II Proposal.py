@@ -1,4 +1,4 @@
-Project II Propsal.py
+Project II Proposal.py
 Project II
 Matthew Yurich, Madhusudan Tamrakar, Allison Dorion
 

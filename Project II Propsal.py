@@ -1,6 +1,6 @@
 Project II Propsal.py
 Project II
-Matthew Yurich, Madhusan Tamrakar, Allison Dorion
+Matthew Yurich, Madhusudan Tamrakar, Allison Dorion
 
 Objective: Compare marriage rates and divorce rates across all 50 states.
 

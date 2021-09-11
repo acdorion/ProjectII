@@ -5,14 +5,13 @@ function buildCharts(state) {
         console.log(state);
 
         // Cast rates as numbers
-
         console.log('state data', stateData);
         
         // Build line chart
 	    var trace1 = {
             x: stateData.year,
             y: stateData.marriage_rates,
-            type: "line",
+            type: "line ",
             text: 'Counts per 1,000'
         };
         var data = [trace1];
@@ -25,10 +24,8 @@ function buildCharts(state) {
     });
 
     // Build map with static data from 2016
-
     d3.json(`/metadata/year/2016`, function(yearData) {
         console.log('2016 data', yearData)
-
 
         // Build bar chart
         var myPlot = document.getElementById('bar'),
@@ -37,12 +34,12 @@ function buildCharts(state) {
                 y: yearData.marriage_rates,
                 type: "bar",
                 marker: {
-                    color: 'light blue'
+                    color: 'red'
                 },
                 text: 'Counts per 1,000',
             }];
             layout = {
-                title: "2016 Marriage Rates",
+                title: "Marriage Rates 2016",
                 xaxis: { 
                     tickangle: 40,
                     tickfont: {
@@ -55,8 +52,7 @@ function buildCharts(state) {
 
         Plotly.newPlot("bar", data, layout);
 
-    });
-    
+    });   
 }
 
 function init() {      

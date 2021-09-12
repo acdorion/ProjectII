@@ -1,4 +1,3 @@
-app2.js
 function buildCharts(state) {
     // TO DO: Iterate through all states
 

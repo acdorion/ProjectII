@@ -1,0 +1,805 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Marriage\_and\_divorce\_rates}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{sqlite3}\PY{o}{,} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy} \PY{k}{import} \PY{n}{create\PYZus{}engine}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+\end{Verbatim}
+
+
+    \subsubsection{Read data from CSV}\label{read-data-from-csv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} read the marriage rates}
+        \PY{n}{df\PYZus{}mr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}marriage\PYZus{}rates.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} read the divorce rates}
+        \PY{n}{df\PYZus{}dr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}divorce\PYZus{}rates.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}         State  2016  2015  2014  2013  2012  2011  2010  2009  2008  \textbackslash{}
+        0     Alabama   7.1   7.4   7.8   7.8   8.2   8.4   8.2   8.3   8.6   
+        1      Alaska   7.1   7.4   7.5   7.3   7.2   7.8   8.0   7.8   8.4   
+        2     Arizona   5.9   5.9   5.8   5.4   5.6   5.7   5.9   5.6   6.0   
+        3    Arkansas   9.9  10.0  10.1   9.8  10.9  10.4  10.8  10.7  10.6   
+        4  California   6.5   6.2   6.4   6.5   6.0   5.8   5.8   5.8   6.7   
+        
+              {\ldots}       2000  1999  1995  1990  Unnamed: 21  Unnamed: 22  Unnamed: 23  \textbackslash{}
+        0     {\ldots}       10.1  10.8   9.8  10.6          NaN          NaN          NaN   
+        1     {\ldots}        8.9   8.6   9.0  10.2          NaN          NaN          NaN   
+        2     {\ldots}        7.5   8.2   8.8  10.0          NaN          NaN          NaN   
+        3     {\ldots}       15.4  14.8  14.4  15.3          NaN          NaN          NaN   
+        4     {\ldots}        5.8   6.4   6.3   7.9          NaN          NaN          NaN   
+        
+           Unnamed: 24  Unnamed: 25  Unnamed: 26  
+        0          NaN          NaN          NaN  
+        1          NaN          NaN          NaN  
+        2          NaN          NaN          NaN  
+        3          NaN          NaN          NaN  
+        4          NaN          NaN          NaN  
+        
+        [5 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df\PYZus{}dr}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}         State  2016  2015  2014  2013  2012  2011  2010  2009  2008  {\ldots}   \textbackslash{}
+        0     Alabama   3.8   3.9   3.8   3.7   3.6   4.3   4.4   4.4   4.3  {\ldots}    
+        1      Alaska   3.9   4.1   4.0   4.5   4.5   4.8   4.7   4.4   4.4  {\ldots}    
+        2     Arizona   3.4   3.6   3.9   3.9   4.3   3.9   3.5   3.6   3.8  {\ldots}    
+        3    Arkansas   3.9   4.8   4.8   5.0   5.3   5.3   5.7   5.7   5.5  {\ldots}    
+        4  California   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  {\ldots}    
+        
+           2006  2005  2004  2003  2002  2001  2000  1999  1995  1990  
+        0   4.9   4.9   4.9   5.2   5.4   5.4   5.5   5.7   6.0   6.1  
+        1   4.2   4.3   4.3   3.9   4.6   4.3   3.9   5.0   5.0   5.5  
+        2   4.0   4.2   4.3   4.4   4.8   4.0   4.6   4.6   6.2   6.9  
+        3   5.8   6.0   6.1   6.0   6.2   6.2   6.4   6.2   6.3   6.9  
+        4   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   4.3  
+        
+        [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Index(['State', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009',
+               '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000',
+               '1999', '1995', '1990', 'Unnamed: 21', 'Unnamed: 22', 'Unnamed: 23',
+               'Unnamed: 24', 'Unnamed: 25', 'Unnamed: 26'],
+              dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}mr}\PY{o}{=} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{]}
+        \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}         State  2016  2015  2014  2013  2012  2011  2010  2009  2008  {\ldots}   \textbackslash{}
+        0     Alabama   7.1   7.4   7.8   7.8   8.2   8.4   8.2   8.3   8.6  {\ldots}    
+        1      Alaska   7.1   7.4   7.5   7.3   7.2   7.8   8.0   7.8   8.4  {\ldots}    
+        2     Arizona   5.9   5.9   5.8   5.4   5.6   5.7   5.9   5.6   6.0  {\ldots}    
+        3    Arkansas   9.9  10.0  10.1   9.8  10.9  10.4  10.8  10.7  10.6  {\ldots}    
+        4  California   6.5   6.2   6.4   6.5   6.0   5.8   5.8   5.8   6.7  {\ldots}    
+        
+           2006  2005  2004  2003  2002  2001  2000  1999  1995  1990  
+        0   9.2   9.2   9.4   9.6   9.9   9.4  10.1  10.8   9.8  10.6  
+        1   8.2   8.2   8.5   8.1   8.3   8.1   8.9   8.6   9.0  10.2  
+        2   6.5   6.6   6.7   6.5   6.7   7.6   7.5   8.2   8.8  10.0  
+        3  12.4  12.9  13.4  13.4  14.3  14.3  15.4  14.8  14.4  15.3  
+        4   6.3   6.4   6.4   6.1   6.2   6.5   5.8   6.4   6.3   7.9  
+        
+        [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} convert the float to strings for marriage rates}
+        \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{State}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{col}\PY{p}{)} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{State}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Index(['State', 'Y\_2016', 'Y\_2015', 'Y\_2014', 'Y\_2013', 'Y\_2012', 'Y\_2011',
+               'Y\_2010', 'Y\_2009', 'Y\_2008', 'Y\_2007', 'Y\_2006', 'Y\_2005', 'Y\_2004',
+               'Y\_2003', 'Y\_2002', 'Y\_2001', 'Y\_2000', 'Y\_1999', 'Y\_1995', 'Y\_1990'],
+              dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} convert the float to strings for divorce rates}
+        \PY{n}{df\PYZus{}dr}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{State}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{col}\PY{p}{)} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}dr}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{State}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}dr}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Index(['State', 'Y\_2016', 'Y\_2015', 'Y\_2014', 'Y\_2013', 'Y\_2012', 'Y\_2011',
+               'Y\_2010', 'Y\_2009', 'Y\_2008', 'Y\_2007', 'Y\_2006', 'Y\_2005', 'Y\_2004',
+               'Y\_2003', 'Y\_2002', 'Y\_2001', 'Y\_2000', 'Y\_1999', 'Y\_1995', 'Y\_1990'],
+              dtype='object')
+\end{Verbatim}
+            
+    \subsubsection{Performing linear interpolation at missing
+datapoints}\label{performing-linear-interpolation-at-missing-datapoints}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{missing\PYZus{}data\PYZus{}rows} \PY{o}{=} \PY{n}{df\PYZus{}mr}\PY{p}{[}\PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+        \PY{n}{missing\PYZus{}data\PYZus{}rows}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}         State  Y\_2016  Y\_2015  Y\_2014  Y\_2013  Y\_2012  Y\_2011  Y\_2010  Y\_2009  \textbackslash{}
+        10    Georgia     6.8     6.2     NaN     NaN     6.5     6.6     7.3     6.6   
+        18  Louisiana     6.1     6.8     6.9     6.4     5.7     6.4     6.9     7.1   
+        36   Oklahoma     6.7     7.4     7.1     7.1     6.9     6.9     7.2     6.9   
+        
+            Y\_2008   {\ldots}    Y\_2006  Y\_2005  Y\_2004  Y\_2003  Y\_2002  Y\_2001  Y\_2000  \textbackslash{}
+        10     6.0   {\ldots}       7.3     7.0     7.9     7.0     6.5     6.1     6.8   
+        18     6.8   {\ldots}       NaN     8.0     8.0     8.2     8.1     8.4     9.1   
+        36     7.1   {\ldots}       7.3     7.3     6.5     NaN     NaN     NaN     NaN   
+        
+            Y\_1999  Y\_1995  Y\_1990  
+        10     7.8     8.4    10.3  
+        18     9.1     9.3     9.6  
+        36     6.8     8.6    10.6  
+        
+        [3 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ga} \PY{o}{=} \PY{n}{missing\PYZus{}data\PYZus{}rows}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         \PY{n}{la} \PY{o}{=} \PY{n}{missing\PYZus{}data\PYZus{}rows}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         \PY{n}{ok} \PY{o}{=} \PY{n}{missing\PYZus{}data\PYZus{}rows}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         \PY{n}{ga\PYZus{}index}\PY{p}{,} \PY{n}{la\PYZus{}index}\PY{p}{,} \PY{n}{ok\PYZus{}index} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{36}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} plot the mr for Georgia}
+         \PY{n}{ga}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a4a0ac9748>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ga\PYZus{}clean\PYZus{}df} \PY{o}{=} \PY{n}{ga}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ga\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49f321e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} plot the mr for Louisiana}
+         \PY{n}{la}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49f868438>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{la\PYZus{}clean\PYZus{}df} \PY{o}{=} \PY{n}{la}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{p}{)}
+         \PY{n}{la\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49f8fbc50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} plot the mr for Oklahoma}
+         \PY{n}{ok}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49f952b00>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{ok\PYZus{}clean\PYZus{}df} \PY{o}{=} \PY{n}{ok}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ok\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49f998fd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} assign the clean data to the states that have missing data}
+         \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{ga\PYZus{}index}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{=} \PY{n}{ga\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{values}
+         \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{la\PYZus{}index}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{=} \PY{n}{la\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{values}
+         \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{ok\PYZus{}index}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{=} \PY{n}{ok\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} check if the missing datapoints still exist }
+         \PY{n}{check\PYZus{}missing\PYZus{}data\PYZus{}rows} \PY{o}{=} \PY{n}{df\PYZus{}mr}\PY{p}{[}\PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{check\PYZus{}missing\PYZus{}data\PYZus{}rows}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Empty DataFrame
+         Columns: [State, Y\_2016, Y\_2015, Y\_2014, Y\_2013, Y\_2012, Y\_2011, Y\_2010, Y\_2009, Y\_2008, Y\_2007, Y\_2006, Y\_2005, Y\_2004, Y\_2003, Y\_2002, Y\_2001, Y\_2000, Y\_1999, Y\_1995, Y\_1990]
+         Index: []
+         
+         [0 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}         State  Y\_2016  Y\_2015  Y\_2014  Y\_2013  Y\_2012  Y\_2011  Y\_2010  Y\_2009  \textbackslash{}
+         0     Alabama     7.1     7.4     7.8     7.8     8.2     8.4     8.2     8.3   
+         1      Alaska     7.1     7.4     7.5     7.3     7.2     7.8     8.0     7.8   
+         2     Arizona     5.9     5.9     5.8     5.4     5.6     5.7     5.9     5.6   
+         3    Arkansas     9.9    10.0    10.1     9.8    10.9    10.4    10.8    10.7   
+         4  California     6.5     6.2     6.4     6.5     6.0     5.8     5.8     5.8   
+         
+            Y\_2008   {\ldots}    Y\_2006  Y\_2005  Y\_2004  Y\_2003  Y\_2002  Y\_2001  Y\_2000  \textbackslash{}
+         0     8.6   {\ldots}       9.2     9.2     9.4     9.6     9.9     9.4    10.1   
+         1     8.4   {\ldots}       8.2     8.2     8.5     8.1     8.3     8.1     8.9   
+         2     6.0   {\ldots}       6.5     6.6     6.7     6.5     6.7     7.6     7.5   
+         3    10.6   {\ldots}      12.4    12.9    13.4    13.4    14.3    14.3    15.4   
+         4     6.7   {\ldots}       6.3     6.4     6.4     6.1     6.2     6.5     5.8   
+         
+            Y\_1999  Y\_1995  Y\_1990  
+         0    10.8     9.8    10.6  
+         1     8.6     9.0    10.2  
+         2     8.2     8.8    10.0  
+         3    14.8    14.4    15.3  
+         4     6.4     6.3     7.9  
+         
+         [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Index(['State', 'Y\_2016', 'Y\_2015', 'Y\_2014', 'Y\_2013', 'Y\_2012', 'Y\_2011',
+                'Y\_2010', 'Y\_2009', 'Y\_2008', 'Y\_2007', 'Y\_2006', 'Y\_2005', 'Y\_2004',
+                'Y\_2003', 'Y\_2002', 'Y\_2001', 'Y\_2000', 'Y\_1999', 'Y\_1995', 'Y\_1990'],
+               dtype='object')
+\end{Verbatim}
+            
+    \subsubsection{Save to the sqlite
+database}\label{save-to-the-sqlite-database}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{engine} \PY{o}{=} \PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqlite:///../db/marriage\PYZus{}and\PYZus{}divorce\PYZus{}rates.sqlite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{echo}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} save the marriage data into sqlite}
+         \PY{n}{df\PYZus{}mr}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marriage\PYZus{}rates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{con}\PY{o}{=}\PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} save the divorce data into sqlite}
+         \PY{n}{df\PYZus{}dr}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{divorce\PYZus{}rates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{con}\PY{o}{=}\PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{engine}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT * FROM marriage\PYZus{}rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} [(0, 'Alabama', 7.1, 7.4, 7.8, 7.8, 8.2, 8.4, 8.2, 8.3, 8.6, 8.9, 9.2, 9.2, 9.4, 9.6, 9.9, 9.4, 10.1, 10.8, 9.8, 10.6),
+          (1, 'Alaska', 7.1, 7.4, 7.5, 7.3, 7.2, 7.8, 8.0, 7.8, 8.4, 8.5, 8.2, 8.2, 8.5, 8.1, 8.3, 8.1, 8.9, 8.6, 9.0, 10.2),
+          (2, 'Arizona', 5.9, 5.9, 5.8, 5.4, 5.6, 5.7, 5.9, 5.6, 6.0, 6.4, 6.5, 6.6, 6.7, 6.5, 6.7, 7.6, 7.5, 8.2, 8.8, 10.0),
+          (3, 'Arkansas', 9.9, 10.0, 10.1, 9.8, 10.9, 10.4, 10.8, 10.7, 10.6, 12.0, 12.4, 12.9, 13.4, 13.4, 14.3, 14.3, 15.4, 14.8, 14.4, 15.3),
+          (4, 'California', 6.5, 6.2, 6.4, 6.5, 6.0, 5.8, 5.8, 5.8, 6.7, 6.2, 6.3, 6.4, 6.4, 6.1, 6.2, 6.5, 5.8, 6.4, 6.3, 7.9),
+          (5, 'Colorado', 7.4, 6.8, 7.1, 6.5, 6.8, 7.0, 6.9, 6.9, 7.4, 7.1, 7.2, 7.6, 7.4, 7.8, 8.0, 8.2, 8.3, 8.2, 9.0, 9.8),
+          (6, 'Connecticut', 5.6, 5.3, 5.4, 5.0, 5.2, 5.5, 5.6, 5.9, 5.4, 5.5, 5.5, 5.8, 5.8, 5.5, 5.7, 5.4, 5.7, 5.8, 6.6, 7.9),
+          (7, 'Delaware', 5.6, 5.7, 6.0, 6.6, 5.8, 5.2, 5.2, 5.4, 5.5, 5.7, 5.9, 5.9, 6.1, 6.0, 6.4, 6.5, 6.5, 6.7, 7.3, 8.4),
+          (8, 'District of Columbia', 8.1, 8.2, 11.8, 10.8, 8.4, 8.7, 7.6, 4.7, 4.1, 4.2, 4.0, 4.1, 5.2, 5.1, 5.1, 6.2, 4.9, 6.6, 6.1, 8.2),
+          (9, 'Florida', 8.1, 8.2, 7.3, 7.0, 7.2, 7.4, 7.3, 7.5, 8.0, 8.5, 8.6, 8.9, 9.0, 9.0, 9.4, 9.3, 8.9, 8.7, 9.9, 10.9),
+          (10, 'Georgia', 6.8, 6.2, 6.3, 6.4, 6.5, 6.6, 7.3, 6.6, 6.0, 6.8, 7.3, 7.0, 7.9, 7.0, 6.5, 6.1, 6.8, 7.8, 8.4, 10.3),
+          (11, 'Hawaii', 15.6, 15.9, 17.7, 16.3, 17.5, 17.6, 17.6, 17.2, 19.1, 20.8, 21.9, 22.6, 22.6, 22.0, 20.8, 19.6, 20.6, 18.9, 15.7, 16.4),
+          (12, 'Idaho', 8.1, 8.2, 8.4, 8.2, 8.2, 8.6, 8.8, 8.9, 9.5, 10.0, 10.1, 10.5, 10.8, 10.9, 11.0, 11.2, 10.8, 12.1, 13.1, 13.9),
+          (13, 'Illinois', 5.4, 5.9, 6.2, 5.4, 5.8, 5.6, 5.7, 5.7, 5.9, 6.1, 6.2, 5.9, 6.2, 6.5, 6.6, 7.2, 6.9, 7.0, 6.9, 8.8),
+          (14, 'Indiana', 6.9, 6.9, 7.1, 6.6, 6.7, 6.8, 6.3, 7.9, 8.0, 7.0, 7.0, 6.9, 7.8, 7.1, 7.9, 7.9, 7.9, 8.1, 8.6, 9.6),
+          (15, 'Iowa', 6.1, 6.3, 6.9, 7.4, 6.8, 6.7, 6.9, 7.0, 6.5, 6.6, 6.7, 6.9, 6.9, 6.9, 7.0, 7.1, 6.9, 7.9, 7.7, 9.0),
+          (16, 'Kansas', 6.2, 5.9, 6.1, 6.0, 6.3, 6.3, 6.4, 6.4, 6.7, 6.8, 6.8, 6.8, 7.0, 6.9, 7.3, 7.5, 8.3, 7.1, 8.5, 9.2),
+          (17, 'Kentucky', 7.4, 7.2, 6.9, 7.3, 7.2, 7.5, 7.4, 7.6, 7.9, 7.8, 8.4, 8.7, 8.8, 9.1, 9.0, 9.0, 9.8, 10.9, 12.2, 13.5),
+          (18, 'Louisiana', 6.1, 6.8, 6.9, 6.4, 5.7, 6.4, 6.9, 7.1, 6.8, 7.5, 7.75, 8.0, 8.0, 8.2, 8.1, 8.4, 9.1, 9.1, 9.3, 9.6),
+          (19, 'Maine', 7.6, 7.6, 7.7, 8.3, 7.3, 7.2, 7.1, 7.1, 7.4, 7.4, 7.8, 8.2, 8.6, 8.4, 8.4, 8.6, 8.8, 8.6, 8.7, 9.7),
+          (20, 'Maryland', 6.3, 6.2, 6.5, 6.8, 5.6, 5.8, 5.7, 5.8, 5.9, 6.5, 6.6, 6.9, 6.9, 6.9, 7.1, 7.0, 7.5, 7.5, 8.4, 9.7),
+          (21, 'Massachusetts', 5.8, 5.5, 5.6, 5.5, 5.5, 5.5, 5.6, 5.6, 5.7, 5.9, 5.9, 6.2, 6.5, 5.6, 5.9, 6.2, 5.8, 6.2, 7.1, 7.9),
+          (22, 'Michigan', 5.9, 6.0, 5.8, 5.8, 5.6, 5.7, 5.5, 5.4, 5.6, 5.7, 5.9, 6.1, 6.2, 6.3, 6.5, 6.7, 6.7, 6.8, 7.3, 8.2),
+          (23, 'Minnesota', 5.6, 5.6, 5.9, 6.0, 5.6, 5.6, 5.3, 5.3, 5.4, 5.8, 6.0, 6.0, 6.0, 6.3, 6.5, 6.6, 6.8, 6.8, 7.0, 7.7),
+          (24, 'Mississippi', 7.0, 7.0, 6.9, 6.7, 5.8, 4.9, 4.9, 4.8, 5.1, 5.4, 5.7, 5.8, 6.1, 6.2, 6.4, 6.5, 6.9, 7.8, 7.9, 9.4),
+          (25, 'Missouri', 6.9, 6.2, 6.7, 6.4, 6.5, 6.6, 6.5, 6.5, 6.8, 6.9, 6.9, 7.0, 7.1, 7.2, 7.3, 7.5, 7.8, 8.1, 8.3, 9.6),
+          (26, 'Montana', 7.8, 8.0, 7.9, 7.4, 7.8, 7.8, 7.4, 7.3, 7.6, 7.5, 7.4, 7.4, 7.5, 7.2, 7.1, 7.1, 7.3, 7.4, 7.6, 8.6),
+          (27, 'Nebraska', 6.5, 6.4, 6.4, 6.3, 6.7, 6.6, 6.6, 6.6, 6.9, 6.8, 6.8, 7.0, 7.1, 7.0, 7.5, 7.9, 7.6, 7.5, 7.3, 8.0),
+          (28, 'Nevada', 28.4, 31.0, 31.9, 32.3, 35.1, 36.9, 38.3, 40.3, 42.3, 48.6, 52.1, 57.4, 62.1, 63.9, 67.4, 69.6, 72.2, 82.3, 85.2, 99.0),
+          (29, 'New Hampshire', 7.0, 6.9, 7.2, 6.9, 6.8, 7.1, 7.3, 6.5, 6.8, 7.1, 7.2, 7.3, 8.0, 8.1, 8.3, 8.5, 9.4, 7.9, 8.3, 9.5),
+          (30, 'New Jersey', 5.7, 5.6, 5.4, 5.1, 4.9, 4.8, 5.1, 5.0, 5.4, 5.4, 5.5, 5.7, 5.9, 5.8, 6.0, 6.4, 6.0, 5.9, 6.5, 7.6),
+          (31, 'New Mexico', 6.4, 6.2, 8.1, 7.3, 6.9, 8.0, 7.7, 5.0, 4.0, 5.6, 6.8, 6.6, 7.4, 6.9, 7.9, 7.6, 8.0, 8.0, 8.8, 8.8),
+          (32, 'New York', 7.5, 7.1, 6.7, 6.9, 7.0, 6.9, 6.5, 6.5, 6.6, 6.8, 6.9, 6.8, 6.8, 6.8, 7.3, 7.6, 7.1, 7.3, 8.0, 8.6),
+          (33, 'North Carolina', 7.0, 7.0, 6.9, 6.5, 6.6, 6.7, 6.6, 6.6, 6.9, 7.0, 7.3, 7.3, 7.3, 7.4, 7.7, 7.4, 8.2, 8.5, 8.4, 7.8),
+          (34, 'North Dakota', 6.0, 6.2, 6.3, 6.3, 6.6, 6.7, 6.5, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7.1, 6.8, 6.5, 7.2, 6.6, 7.1, 7.5),
+          (35, 'Ohio', 6.0, 5.9, 5.8, 5.7, 5.8, 5.9, 5.8, 5.8, 6.0, 6.1, 6.3, 6.5, 6.6, 6.7, 7.0, 7.2, 7.8, 7.8, 8.0, 9.0),
+          (36, 'Oklahoma', 6.7, 7.4, 7.1, 7.1, 6.9, 6.9, 7.2, 6.9, 7.1, 7.3, 7.3, 7.3, 6.5, 6.56, 6.62, 6.68, 6.74, 6.8, 8.6, 10.6),
+          (37, 'Oregon', 6.9, 6.9, 6.8, 6.3, 6.6, 6.6, 6.5, 6.6, 6.9, 7.2, 7.3, 7.3, 8.1, 7.2, 7.1, 7.5, 7.6, 7.6, 8.1, 8.9),
+          (38, 'Pennsylvania', 5.8, 5.7, 5.8, 5.4, 5.5, 5.3, 5.3, 5.3, 5.5, 5.7, 5.7, 5.8, 5.9, 5.9, 5.7, 5.8, 6.0, 6.1, 6.2, 7.1),
+          (39, 'Rhode Island', 6.7, 6.4, 6.7, 6.2, 6.1, 6.0, 5.8, 5.9, 6.1, 6.4, 6.6, 7.0, 7.7, 7.8, 7.8, 8.1, 7.6, 7.5, 7.3, 8.1),
+          (40, 'South Carolina', 6.6, 7.5, 7.6, 7.1, 7.4, 7.2, 7.4, 7.3, 7.3, 7.9, 7.8, 8.3, 8.2, 9.0, 9.3, 9.9, 10.6, 10.2, 11.9, 15.9),
+          (41, 'South Dakota', 7.2, 7.2, 7.1, 7.0, 7.5, 7.5, 7.3, 7.3, 7.7, 7.8, 8.0, 8.4, 8.4, 8.4, 8.8, 8.9, 9.4, 9.1, 9.9, 11.1),
+          (42, 'Tennessee', 8.6, 8.5, 8.4, 8.4, 8.8, 9.0, 8.8, 8.4, 9.4, 10.1, 10.6, 10.9, 11.4, 11.9, 13.1, 13.5, 15.5, 14.7, 15.5, 13.9),
+          (43, 'Texas', 7.1, 7.2, 6.9, 7.0, 7.3, 7.1, 7.1, 7.1, 7.3, 7.4, 7.6, 7.8, 8.0, 8.1, 8.4, 9.1, 9.4, 9.1, 9.9, 10.5),
+          (44, 'Utah', 9.0, 8.1, 7.3, 7.5, 8.4, 8.6, 8.5, 8.4, 9.0, 9.6, 9.2, 9.8, 9.9, 10.2, 10.4, 10.2, 10.8, 9.6, 10.7, 11.2),
+          (45, 'Vermont', 8.3, 8.1, 8.7, 9.2, 8.2, 8.3, 9.3, 8.7, 7.9, 8.5, 8.6, 8.9, 9.4, 9.7, 9.8, 9.8, 10.0, 10.0, 10.3, 10.9),
+          (46, 'Virginia', 7.0, 7.0, 6.7, 6.7, 6.8, 6.8, 6.8, 6.9, 7.2, 7.5, 7.8, 8.2, 8.3, 8.4, 8.6, 8.8, 8.8, 9.2, 10.2, 11.4),
+          (47, 'Washington', 6.2, 6.2, 7.0, 7.1, 6.3, 6.1, 6.0, 6.0, 6.3, 6.4, 6.5, 6.5, 6.5, 6.5, 6.5, 7.0, 6.9, 7.2, 7.7, 9.5),
+          (48, 'West Virginia', 6.4, 6.6, 6.7, 6.6, 7.0, 7.2, 6.7, 6.7, 7.1, 7.3, 7.3, 7.4, 7.5, 7.5, 8.1, 7.9, 8.7, 7.5, 6.1, 7.2),
+          (49, 'Wisconsin', 5.6, 5.6, 5.7, 5.2, 5.4, 5.3, 5.3, 5.3, 5.6, 5.7, 6.0, 6.1, 6.2, 6.2, 6.3, 6.5, 6.7, 6.7, 7.0, 7.9),
+          (50, 'Wyoming', 7.1, 7.3, 7.7, 7.5, 7.6, 7.8, 7.6, 8.0, 8.6, 9.0, 9.3, 9.3, 9.3, 9.3, 9.5, 10.0, 10.0, 9.9, 10.6, 10.7)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{engine}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT * FROM divorce\PYZus{}rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [(0, 'Alabama', 3.8, 3.9, 3.8, 3.7, 3.6, 4.3, 4.4, 4.4, 4.3, 4.5, 4.9, 4.9, 4.9, 5.2, 5.4, 5.4, 5.5, 5.7, 6.0, 6.1),
+          (1, 'Alaska', 3.9, 4.1, 4.0, 4.5, 4.5, 4.8, 4.7, 4.4, 4.4, 4.3, 4.2, 4.3, 4.3, 3.9, 4.6, 4.3, 3.9, 5.0, 5.0, 5.5),
+          (2, 'Arizona', 3.4, 3.6, 3.9, 3.9, 4.3, 3.9, 3.5, 3.6, 3.8, 4.0, 4.0, 4.2, 4.3, 4.4, 4.8, 4.0, 4.6, 4.6, 6.2, 6.9),
+          (3, 'Arkansas', 3.9, 4.8, 4.8, 5.0, 5.3, 5.3, 5.7, 5.7, 5.5, 5.9, 5.8, 6.0, 6.1, 6.0, 6.2, 6.2, 6.4, 6.2, 6.3, 6.9),
+          (4, 'California', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.3),
+          (5, 'Colorado', 3.6, 3.7, 3.9, 4.1, 4.3, 4.4, 4.3, 4.3, 4.3, 4.4, 4.5, 4.4, 4.4, 4.3, 4.7, 4.7, 4.7, 4.8, 0.0, 5.5),
+          (6, 'Connecticut', 3.2, 3.1, 2.6, 2.8, 2.7, 3.1, 2.9, 3.0, 3.4, 3.2, 3.1, 3.0, 3.1, 3.2, 3.3, 3.2, 3.3, 3.0, 2.9, 3.2),
+          (7, 'Delaware', 3.1, 3.1, 3.3, 3.4, 3.5, 3.6, 3.5, 3.6, 3.5, 3.7, 3.8, 3.8, 3.7, 3.9, 3.5, 3.9, 3.9, 4.5, 5.0, 4.4),
+          (8, 'District of Columbia', 2.7, 2.8, 2.6, 2.8, 2.9, 2.9, 2.8, 2.7, 2.7, 1.7, 2.1, 2.0, 1.8, 2.0, 2.4, 2.9, 3.2, 3.6, 3.2, 4.5),
+          (9, 'Florida', 3.9, 4.0, 4.0, 4.1, 4.2, 4.5, 4.4, 4.2, 4.3, 4.6, 4.7, 4.6, 4.7, 5.0, 5.1, 5.2, 5.1, 5.1, 5.5, 6.3),
+          (10, 'Georgia', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.2, 2.5, 3.1, 3.3, 4.1, 5.1, 5.5),
+          (11, 'Hawaii', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.7, 4.0, 3.9, 3.8, 4.6, 4.6),
+          (12, 'Idaho', 4.0, 4.1, 4.2, 4.5, 4.7, 4.9, 5.2, 5.0, 4.8, 4.9, 5.0, 5.0, 5.0, 5.2, 5.3, 5.3, 5.5, 5.4, 5.8, 6.5),
+          (13, 'Illinois', 2.0, 2.2, 2.2, 2.3, 2.4, 2.6, 2.6, 2.5, 2.5, 2.6, 2.5, 2.6, 2.6, 2.8, 2.9, 3.2, 3.2, 3.3, 3.2, 3.8),
+          (14, 'Indiana', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+          (15, 'Iowa', 1.3, 1.2, 1.5, 1.9, 2.2, 2.4, 2.4, 2.4, 2.6, 2.5, 2.7, 2.7, 2.8, 2.8, 3.1, 3.3, 3.3, 3.3, 3.7, 3.9),
+          (16, 'Kansas', 2.7, 2.8, 3.0, 3.0, 3.4, 3.9, 3.7, 3.6, 3.5, 3.4, 3.1, 3.1, 3.3, 3.3, 3.6, 3.4, 3.6, 3.4, 4.1, 5.0),
+          (17, 'Kentucky', 3.8, 3.7, 3.8, 4.2, 4.1, 4.4, 4.5, 4.6, 4.6, 4.6, 5.0, 4.6, 4.9, 5.0, 5.2, 5.1, 5.1, 5.5, 5.9, 5.8),
+          (18, 'Louisiana', 2.0, 2.8, 2.3, 2.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.4, 3.3, 0.0, 0.0, 0.0, 0.0, 0.0),
+          (19, 'Maine', 3.4, 3.4, 3.6, 4.0, 3.9, 4.2, 4.2, 4.1, 4.2, 4.2, 4.2, 4.1, 4.3, 4.4, 4.6, 4.7, 5.0, 5.1, 4.4, 4.3),
+          (20, 'Maryland', 2.7, 2.6, 2.5, 2.5, 2.8, 2.9, 2.8, 2.8, 2.8, 2.9, 3.0, 3.1, 3.2, 3.2, 3.4, 3.0, 3.3, 3.2, 3.0, 3.4),
+          (21, 'Massachusetts', 2.3, 2.6, 2.7, 2.6, 2.7, 2.7, 2.5, 2.2, 2.0, 2.3, 2.3, 2.2, 2.2, 2.5, 2.5, 2.4, 2.5, 2.5, 2.2, 2.8),
+          (22, 'Michigan', 2.9, 3.0, 3.0, 3.3, 3.3, 3.4, 3.5, 3.3, 3.4, 3.4, 3.5, 3.4, 3.5, 3.5, 3.8, 3.9, 3.9, 3.8, 4.1, 4.3),
+          (23, 'Minnesota', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.8, 3.0, 3.1, 3.2, 3.2, 3.2, 3.4, 3.5),
+          (24, 'Mississippi', 3.2, 3.4, 3.4, 3.6, 4.0, 4.0, 4.3, 4.1, 4.3, 4.5, 4.8, 4.4, 4.5, 4.6, 4.9, 5.0, 5.0, 5.0, 4.8, 5.5),
+          (25, 'Missouri', 3.3, 3.2, 3.3, 3.4, 3.7, 3.9, 3.9, 3.8, 3.7, 3.8, 3.8, 3.6, 3.8, 3.9, 4.0, 4.2, 4.5, 4.4, 5.0, 5.1),
+          (26, 'Montana', 3.1, 3.4, 3.4, 3.4, 3.9, 4.0, 3.9, 4.0, 4.1, 4.0, 4.4, 4.5, 3.8, 3.9, 4.0, 4.2, 4.2, 2.8, 4.8, 5.1),
+          (27, 'Nebraska', 3.1, 3.2, 3.1, 3.3, 3.4, 3.5, 3.6, 3.4, 3.3, 3.4, 3.4, 3.3, 3.4, 3.4, 3.6, 3.6, 3.7, 3.7, 3.8, 4.0),
+          (28, 'Nevada', 4.3, 4.6, 5.3, 5.1, 5.5, 5.6, 5.9, 6.6, 6.4, 6.4, 6.7, 7.4, 6.3, 7.3, 7.1, 6.3, 9.9, 7.8, 7.8, 11.4),
+          (29, 'New Hampshire', 3.4, 3.3, 3.5, 3.7, 3.6, 3.8, 3.8, 3.7, 3.9, 3.8, 4.1, 3.9, 4.0, 4.1, 4.3, 4.4, 4.8, 5.1, 4.2, 4.7),
+          (30, 'New Jersey', 2.7, 2.8, 2.8, 2.8, 2.8, 2.9, 3.0, 2.7, 3.0, 3.0, 3.0, 2.9, 3.0, 3.2, 3.4, 3.4, 3.0, 3.0, 3.0, 3.0),
+          (31, 'New Mexico', 0.0, 3.3, 3.6, 3.4, 3.0, 3.3, 4.0, 3.9, 4.1, 4.2, 4.3, 4.6, 4.6, 5.2, 4.4, 4.9, 5.1, 4.6, 6.6, 4.9),
+          (32, 'New York', 2.7, 2.7, 2.8, 2.7, 2.9, 2.9, 2.9, 2.6, 2.8, 2.9, 3.1, 2.9, 3.0, 3.2, 3.4, 3.5, 3.0, 3.3, 3.0, 3.2),
+          (33, 'North Carolina', 3.2, 3.1, 3.4, 3.4, 3.7, 3.7, 3.8, 3.8, 3.8, 4.0, 4.0, 4.1, 4.2, 4.2, 4.4, 4.6, 4.5, 4.6, 5.0, 5.1),
+          (34, 'North Dakota', 2.6, 2.8, 2.8, 2.9, 3.1, 2.7, 3.1, 2.8, 2.9, 2.9, 3.0, 2.9, 3.1, 2.9, 2.9, 2.9, 3.4, 4.4, 3.4, 3.6),
+          (35, 'Ohio', 3.0, 3.1, 3.2, 3.3, 3.4, 3.4, 3.4, 3.3, 3.3, 3.4, 3.5, 3.5, 3.6, 3.7, 4.0, 4.0, 4.2, 3.9, 4.3, 4.7),
+          (36, 'Oklahoma', 4.4, 4.4, 4.5, 4.5, 4.8, 5.2, 5.2, 4.8, 5.3, 5.2, 5.3, 5.6, 4.9, 0.0, 0.0, 0.0, 0.0, 0.0, 6.6, 7.7),
+          (37, 'Oregon', 3.4, 3.4, 3.4, 3.6, 3.8, 3.8, 4.0, 3.9, 3.9, 3.9, 4.0, 4.2, 4.1, 4.3, 4.6, 4.8, 4.8, 4.6, 4.7, 5.5),
+          (38, 'Pennsylvania', 2.6, 2.6, 2.7, 2.7, 2.8, 2.8, 2.7, 2.7, 2.7, 2.8, 2.8, 2.3, 3.0, 3.1, 3.1, 3.1, 3.1, 3.1, 3.2, 3.3),
+          (39, 'Rhode Island', 2.8, 3.0, 2.8, 3.1, 3.2, 3.2, 3.2, 3.0, 2.7, 2.8, 3.0, 3.0, 3.1, 3.1, 3.2, 3.2, 2.9, 2.7, 3.6, 3.7),
+          (40, 'South Carolina', 2.5, 2.8, 2.9, 3.2, 3.2, 3.2, 3.1, 3.0, 2.8, 3.0, 2.9, 2.9, 3.2, 3.3, 3.4, 3.6, 3.8, 3.8, 3.9, 4.5),
+          (41, 'South Dakota', 2.8, 2.6, 2.8, 2.9, 3.0, 3.3, 3.4, 3.3, 3.1, 3.1, 3.2, 2.8, 3.1, 3.0, 3.3, 3.3, 3.5, 3.7, 3.9, 3.7),
+          (42, 'Tennessee', 3.8, 3.7, 3.8, 4.1, 4.2, 4.3, 4.2, 3.9, 4.2, 4.3, 4.6, 4.6, 4.9, 5.0, 5.1, 5.2, 5.9, 5.8, 6.2, 6.5),
+          (43, 'Texas', 4.2, 2.6, 2.7, 2.9, 3.0, 3.2, 3.3, 3.3, 3.3, 3.3, 3.4, 3.3, 3.6, 3.8, 3.9, 4.0, 4.0, 3.8, 5.2, 5.5),
+          (44, 'Utah', 3.6, 3.6, 3.1, 3.1, 3.3, 3.7, 3.7, 3.7, 3.8, 3.7, 3.9, 4.1, 4.1, 4.0, 4.1, 4.2, 4.3, 4.0, 4.4, 5.1),
+          (45, 'Vermont', 3.1, 3.1, 3.5, 3.5, 3.5, 3.6, 3.8, 3.5, 3.6, 3.6, 3.8, 3.6, 3.9, 4.0, 4.2, 4.3, 4.1, 4.4, 4.7, 4.5),
+          (46, 'Virginia', 3.4, 3.3, 3.5, 3.6, 3.7, 3.8, 3.8, 3.7, 3.8, 3.8, 4.0, 4.0, 3.9, 4.0, 4.2, 4.2, 4.3, 4.4, 4.3, 4.4),
+          (47, 'Washington', 3.5, 3.4, 3.6, 3.8, 3.9, 4.1, 4.2, 3.9, 3.9, 4.0, 4.1, 4.3, 4.3, 4.4, 4.6, 4.5, 4.6, 5.0, 5.4, 5.9),
+          (48, 'West Virginia', 3.8, 4.0, 4.2, 4.6, 4.7, 5.2, 5.1, 5.1, 4.8, 5.1, 5.0, 5.1, 5.0, 5.2, 5.2, 5.2, 5.1, 4.9, 5.2, 5.3),
+          (49, 'Wisconsin', 2.6, 2.6, 2.7, 2.8, 2.9, 2.9, 3.0, 2.9, 3.0, 2.9, 3.0, 2.9, 3.0, 3.1, 3.2, 3.2, 3.2, 3.2, 3.4, 3.6),
+          (50, 'Wyoming', 4.2, 4.1, 4.6, 4.3, 4.4, 4.8, 5.1, 5.1, 4.9, 4.9, 5.1, 5.2, 5.2, 5.4, 5.4, 5.8, 5.8, 5.7, 6.6, 6.6)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Convert the index to primiary key}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}create\PYZus{}table\PYZus{}string}\PY{p}{(}\PY{n}{tablename}\PY{p}{,} \PY{n}{connection}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sql} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{    select * from sqlite\PYZus{}master where name = }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ and type = }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{table}\PY{l+s+s2}{\PYZdq{}}
+         \PY{l+s+s2}{    }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tablename}\PY{p}{)} 
+             \PY{n}{result} \PY{o}{=} \PY{n}{connection}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{sql}\PY{p}{)}
+         
+             \PY{n}{create\PYZus{}table\PYZus{}string} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{fetchmany}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+             \PY{k}{return} \PY{n}{create\PYZus{}table\PYZus{}string}
+         
+         \PY{k}{def} \PY{n+nf}{add\PYZus{}pk\PYZus{}to\PYZus{}create\PYZus{}table\PYZus{}string}\PY{p}{(}\PY{n}{create\PYZus{}table\PYZus{}string}\PY{p}{,} \PY{n}{colname}\PY{p}{)}\PY{p}{:}
+             \PY{n}{regex} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{.+}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{[\PYZca{},]+)(,)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{colname}\PY{p}{)}
+             \PY{k}{return} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{n}{regex}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{1 PRIMARY KEY,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{create\PYZus{}table\PYZus{}string}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{add\PYZus{}pk\PYZus{}to\PYZus{}sqlite\PYZus{}table}\PY{p}{(}\PY{n}{tablename}\PY{p}{,} \PY{n}{index\PYZus{}column}\PY{p}{,} \PY{n}{connection}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cts} \PY{o}{=} \PY{n}{get\PYZus{}create\PYZus{}table\PYZus{}string}\PY{p}{(}\PY{n}{tablename}\PY{p}{,} \PY{n}{connection}\PY{p}{)}
+             \PY{n}{cts} \PY{o}{=} \PY{n}{add\PYZus{}pk\PYZus{}to\PYZus{}create\PYZus{}table\PYZus{}string}\PY{p}{(}\PY{n}{cts}\PY{p}{,} \PY{n}{index\PYZus{}column}\PY{p}{)}
+             \PY{n}{template} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{    BEGIN TRANSACTION;}
+         \PY{l+s+s2}{        ALTER TABLE }\PY{l+s+si}{\PYZob{}tablename\PYZcb{}}\PY{l+s+s2}{ RENAME TO }\PY{l+s+si}{\PYZob{}tablename\PYZcb{}}\PY{l+s+s2}{\PYZus{}old\PYZus{};}
+         
+         \PY{l+s+s2}{        }\PY{l+s+si}{\PYZob{}cts\PYZcb{}}\PY{l+s+s2}{;}
+         
+         \PY{l+s+s2}{        INSERT INTO }\PY{l+s+si}{\PYZob{}tablename\PYZcb{}}\PY{l+s+s2}{ SELECT * FROM }\PY{l+s+si}{\PYZob{}tablename\PYZcb{}}\PY{l+s+s2}{\PYZus{}old\PYZus{};}
+         
+         \PY{l+s+s2}{        DROP TABLE }\PY{l+s+si}{\PYZob{}tablename\PYZcb{}}\PY{l+s+s2}{\PYZus{}old\PYZus{};}
+         
+         \PY{l+s+s2}{    COMMIT TRANSACTION;}
+         \PY{l+s+s2}{    }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{create\PYZus{}and\PYZus{}drop\PYZus{}sql} \PY{o}{=} \PY{n}{template}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tablename} \PY{o}{=} \PY{n}{tablename}\PY{p}{,} \PY{n}{cts} \PY{o}{=} \PY{n}{cts}\PY{p}{)}
+             \PY{n}{connection}\PY{o}{.}\PY{n}{executescript}\PY{p}{(}\PY{n}{create\PYZus{}and\PYZus{}drop\PYZus{}sql}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{con} \PY{o}{=} \PY{n}{sqlite3}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../db/marriage\PYZus{}and\PYZus{}divorce\PYZus{}rates.sqlite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} add\PYZus{}pk\PYZus{}to\PYZus{}sqlite\PYZus{}table(\PYZsq{}marriage\PYZus{}rates\PYZsq{}, \PYZsq{}index\PYZsq{},)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{add\PYZus{}pk\PYZus{}to\PYZus{}sqlite\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marriage\PYZus{}rates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{con}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{add\PYZus{}pk\PYZus{}to\PYZus{}sqlite\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{divorce\PYZus{}rates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{con}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
